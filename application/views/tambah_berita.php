@@ -37,7 +37,19 @@
             <label>Judul</label>
             <input type="text" class="form-control" name="judul" required="">
             <input type="hidden" class="form-control" name="create_by" value="<?php echo $this->session->userdata('id_user'); ?>"
-            <div><?php echo form_error('judul'); ?></div>
+
+
+            <div><?php echo form_error('judul'); ?>
+          </div>
+
+          <div class="form-group">
+            <?php 
+            $karakter ='ABCDEFEGHIJKLMNOPQRSTUPWXYZ1234567890abcdefghijklmnopqrstupwxyz-=?';
+            $shuffle = str_shuffle($karakter);
+            ?>
+            <input type="hidden" class="form-control" name="uuid" required="" value="<?php echo $shuffle?>">
+           
+          </div>
          
           <div class="form-group">
             <label>Kategori</label>
@@ -292,7 +304,3 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
-<?php $this->load->view('jquery_a');?>
-</body>
-</html>

@@ -146,6 +146,15 @@
             <label>Judul Berita</label>
           <input type="text" name="judul" autocomplete="off" value="<?=$row->judul;?>" required placeholder="Masukkan Modal" class="form-control" cols="30" rows="3">
           </div>
+
+          <div class="form-group">
+            <?php 
+            $karakter ='ABCDEFEGHIJKLMNOPQRSTUPWXYZ1234567890abcdefghijklmnopqrstupwxyz-=?';
+            $shuffle = str_shuffle($karakter);
+            ?>
+            <input type="hidden" class="form-control" name="uuid" required="" value="<?php echo $shuffle?>">
+           
+          </div>
          
          <div class="form-group">
             <label>Kategori</label>
@@ -206,7 +215,7 @@
     <div class="pull-right hidden-xs">
       
     </div>
-    <strong>Copyright &copy; 2017 <a href="#">Teknologi</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="caramengatasimasalahmu.blogspot.com">Teknologi</a>.</strong> All rights
     reserved.
   </footer>
 

@@ -28,15 +28,7 @@ $this->load->view('config/dashboard', $data);
 
 public function komentar(){
 
-$this->load->database();
-$jumlah_datak=$this->model_berita->jumlah_datakomentar();
-$config['total_rows']=$jumlah_datak;
-$config['base_url']= base_url().'index.php/dashboard/komentar';
-$config['per_page']= 5;
-$from=$this->uri->segment(3);
-$this->pagination->initialize($config);
-$data['pagination']= $this->pagination->create_links();
-$data['sm_komentar'] = $this->model_berita->admin_sm_komentar($config['per_page'], $from);
+$data['sm_komentar'] = $this->model_berita->admin_sm_komentar();
 $this->load->view('config/komentar', $data);
 		}
 
@@ -57,7 +49,15 @@ function proses_hapus_user($id_user=null){
 
 $this->model_berita->hapus_user($id_user);
 $data['sm_user'] = $this->model_berita->admin_sm_user();
-
+$this->session->set_flashdata('msg',
+             '
+             <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> User berhasil dihapus.
+             </div>'
+           );
   redirect('index.php/dashboard/user');
         }
 
@@ -65,17 +65,20 @@ function proses_hapus_komentar($id_komentar=null){
 
 $this->model_berita->hapus_komentar($id_komentar);
 $data['sm_komentar'] = $this->model_berita->admin_sm_komentar();
-
+$this->session->set_flashdata('msg',
+             '
+             <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times; &nbsp;</span>
+                </button>
+                <strong>Sukses!</strong> komentar berhasil dihapus.
+             </div>'
+           );
   redirect('index.php/dashboard/komentar');
         }
 
 function proses_hapus_berita($id=''){
 
-
-if($this->session->userdata('level') == 'User'){ 
-            redirect('login'); 
-
-  }else{
 
 $cek_data = $this->model_berita->get_data_by_pk('berita', 'id_berita', $id)->row();
 
@@ -95,7 +98,7 @@ $this->session->set_flashdata('msg',
              </div>'
            );
   redirect('index.php/dashboard');
-        }
+        
       }
 
 
@@ -110,11 +113,14 @@ $this->load->view('tambah_berita', $data);
 
 
 if (isset($_POST['btnsimpan'])) {
+  
               $judul          = htmlentities(strip_tags($_POST['judul']));
               $kategori          = htmlentities(strip_tags($_POST['kategori']));
               $isi            = htmlentities(strip_tags($_POST['isi']));
               $create_by            = htmlentities(strip_tags($_POST['create_by']));
-           
+              $uuid            = $_POST['uuid'];
+      
+    
 
               $file_size = 5500; //5 MB
               $this->upload->initialize(array(
@@ -122,6 +128,8 @@ if (isset($_POST['btnsimpan'])) {
                 "allowed_types" => "jpg|jpeg|png|gif",
                 "max_size" => "$file_size"
               ));
+
+
 
               if ( ! $this->upload->do_upload('image'))
               {
@@ -136,8 +144,19 @@ if (isset($_POST['btnsimpan'])) {
                      </div>'
                    );
               }
+
+              
+          
+       
+     
+
+
                else
               {
+
+
+               
+
 
                     $gbr = $this->upload->data();
 
@@ -152,6 +171,7 @@ if (isset($_POST['btnsimpan'])) {
           'isi' => $isi,
                     'created_at' => $tgl,
                     'create_by' => $create_by,
+                    'uuid' => $uuid,
                     'image' => $image);
                     $this->db->insert('berita', $data);
                     $this->session->set_flashdata('msg',
@@ -172,6 +192,8 @@ public function edit_berita()
     {
         $this->form_validation->set_rules('id_berita', 'id_berita', 'required');
          $this->form_validation->set_rules('judul', 'judul', 'required');
+         $this->form_validation->set_rules('uuid', 'uuid', 'required');
+       
          $this->form_validation->set_rules('kategori', 'kategori', 'required');
        
         $this->form_validation->set_rules('isi', 'isi', 'required');
@@ -184,14 +206,22 @@ public function edit_berita()
         }else{
             $data=array(
                 "judul"=>$_POST['judul'],
+                "uuid"=>$_POST['uuid'],
                 "kategori"=>$_POST['kategori'],
                 "isi"=>$_POST['isi'],
                 "image"=>$_POST['image'],
             );
             $this->db->where('id_berita', $_POST['id_berita']);
             $this->db->update('berita',$data);
-            $this->session->set_flashdata('message', 'Data Berhasil Di Edit');
-		
+            $this->session->set_flashdata('msg',
+                       '
+                       <div class="alert alert-success alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times; &nbsp;</span>
+                          </button>
+                          <strong>Sukses!</strong> Berita berhasil Diedit.
+                       </div>'
+                     );
             redirect('index.php/dashboard');
         }
     }

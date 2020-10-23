@@ -112,16 +112,16 @@
 										</div>
 									</div>
 									<div class="col-md-12">
+
 										<div class="form-group">
-											<textarea class="input" name="isi_komentar" placeholder="Message" placeholder="masukkan komentar" required=""></textarea>
+											<span>Pesan</span>
+											<textarea class="input" name="isi_komentar"placeholder="masukkan komentar" required=""></textarea>
 										</div>
 
-																<?php
-    // Cek apakah terdapat session nama message
-    if($this->session->flashdata('message')){ // Jika ada
-      echo $this->session->flashdata('message'); // Tampilkan pesannya
-    }
-    ?>
+													
+    <?php
+          echo $this->session->flashdata('msg');
+          ?>
 										<button class="primary-button">Submit</button>
 									</div>
 								</div>

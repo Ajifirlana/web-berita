@@ -3,6 +3,72 @@
 	<head>
 		<?php $this->load->view('template');?>
     </head>
+    <script>
+  $(document).ready(function(){
+
+    var limit = 3;
+    var start = 0;
+    var action = 'inactive';
+
+    function lazzy_loader(limit)
+    {
+      var output = '';
+      for(var count=0; count<limit; count++)
+      {
+        output += '<div class="post_data">';
+        output += '<p><span class="content-placeholder" style="width:100%; height: 30px;">&nbsp;</span></p>';
+        output += '<p><span class="content-placeholder" style="width:100%; height: 100px;">&nbsp;</span></p>';
+        output += '</div>';
+      }
+      $('#load_data_message').html(output);
+    }
+
+    lazzy_loader(limit);
+
+    function load_data(limit, start)
+    {
+      $.ajax({
+        url:"<?php echo base_url(); ?>berita/fetchnasional",
+        method:"POST",
+        data:{limit:limit, start:start},
+        cache: false,
+        success:function(data)
+        {
+          if(data == '')
+          {
+            $('#load_data_message').html('<button class="primary-button center-block">Berita Terakhir</button>');
+            action = 'active';
+          }
+          else
+          {
+            $('#load_data').append(data);
+            $('#load_data_message').html("");
+            action = 'inactive';
+          }
+        }
+      })
+    }
+
+    if(action == 'inactive')
+    {
+      action = 'active';
+      load_data(limit, start);
+    }
+
+    $(window).scroll(function(){
+      if($(window).scrollTop() + $(window).height() > $("#load_data").height() && action == 'inactive')
+      {
+        lazzy_loader(limit);
+        action = 'active';
+        start = start + limit;
+        setTimeout(function(){
+          load_data(limit, start);
+        }, 1000);
+      }
+    });
+
+  });
+</script>
 	<body>
 		
 		<!-- Header -->
@@ -32,7 +98,7 @@ $link = set_linkurl($id,$jdberita); ?>
 											<a class="post-category cat-2" href="#"><?php echo $k->kategori;?></a>
 											<span class="post-date"><?php echo $tgl;?></span>
 										</div>
-										<h3 class="post-title"><a href="blog-post.html"><?php echo $k->judul;?></a></h3>
+										<h3 class="post-title"><a href="detail/<?php echo $link; ?>"><?php echo $k->judul;?></a></h3>
 									</div>
 								</div>
 							</div>
@@ -54,13 +120,13 @@ $link = set_linkurl($id,$jdberita); ?>
 						
 							<!-- ad -->
 							
-							<?php foreach($semuainter as $k) : $tgl = tgl_indo($k->created_at);
+							<!--<?php foreach($semuainter as $k) : $tgl = tgl_indo($k->created_at);
 $id= $k->id_berita;
 $id = $k->id_berita;
 	$jdberita = $k->judul;
 $link = set_linkurl($id,$jdberita);
 							 ?>
-							<!-- post -->
+							<!--
 							<div class="col-md-12">
 								<div class="post post-row">
 									<a class="post-img" href="detail/<?php echo $link; ?>"><img src="<?php echo base_url('uploads/'.$k->image) ?>" alt=""></a>
@@ -74,23 +140,19 @@ $link = set_linkurl($id,$jdberita);
 									</div>
 								</div>
 							</div>
-							<!-- /post -->
-							
-					<?php endforeach; ?>
+
+					<?php endforeach; ?>-->
 							<!-- post -->
 							<!-- /post -->
 
-							<!-- post -->
-							<!-- /post -->
-							
-							<!-- post -->
-							<!-- /post -->
-							
-							<div class="col-md-12">
-								<div class="section-row">
-									<button class="primary-button center-block">Load More</button>
-								</div>
+							<div id="load_data">
 							</div>
+							<!-- post -->
+							<!-- /post -->
+							<div id="load_data_message"></div>
+							<!-- /post -->
+							
+							
 						</div>
 					</div>
 					
@@ -121,12 +183,15 @@ $link = set_linkurl($id,$jdberita);
 								<h2>Berita Terbaru</h2>
 							</div>
 <?php foreach($berterbaru_pginter as $k) : $tgl = tgl_indo($k->created_at); 
-$id= $k->id_berita;
+
+$id = $k->id_berita;
+	$jdberita = $k->judul;
+$link = set_linkurl($id,$jdberita);
 	?>
 							<div class="post post-widget">
-								<a class="post-img" href="detail/<?php echo $id; ?>"><img src="<?php echo base_url('uploads/'.$k->image) ?>" alt=""></a>
+								<a class="post-img" href="detail/<?php echo $link; ?>"><img src="<?php echo base_url('uploads/'.$k->image) ?>" alt=""></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="detail/<?php echo $id; ?>"><?php echo $k->judul;?></a></h3>
+									<h3 class="post-title"><a href="detail/<?php echo $link; ?>"><?php echo $k->judul;?></a></h3>
 								</div>
 							</div>
 <?php endforeach; ?>

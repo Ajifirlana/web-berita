@@ -3,61 +3,11 @@
 	<head>
 		<?php $this->load->view('template');?>
 
-	<style>
-        @-webkit-keyframes placeHolderShimmer {
-          0% {
-            background-position: -468px 0;
-          }
-          100% {
-            background-position: 468px 0;
-          }
-        }
-
-        @keyframes placeHolderShimmer {
-          0% {
-            background-position: -468px 0;
-          }
-          100% {
-            background-position: 468px 0;
-          }
-        }
-
-        .content-placeholder {
-          display: inline-block;
-          -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-          -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-          -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-          -webkit-animation-name: placeHolderShimmer;
-          animation-name: placeHolderShimmer;
-          -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
-          background: #f6f7f8;
-          background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
-          background: -webkit-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-          background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-          -webkit-background-size: 800px 104px;
-          background-size: 800px 104px;
-          height: inherit;
-          position: relative;
-        }
-
-        .post_data
-        {
-          padding:24px;
-          border:1px solid #f9f9f9;
-          border-radius: 5px;
-          margin-bottom: 24px;
-          box-shadow: 10px 10px 5px #eeeeee;
-        }
-        </style>
 
 		<script>
   $(document).ready(function(){
 
-    var limit = 7;
+    var limit = 3;
     var start = 0;
     var action = 'inactive';
 
@@ -179,7 +129,7 @@ $id = $k->id_berita;
 $link = set_linkurl($id,$jdberita);
 							 ?>
 							<!-- post -->
-							<div class="col-md-12">
+							<!--<div class="col-md-12">
 								<div class="post post-row">
 									<a class="post-img" href="detail/<?php echo $link; ?>"><img src="<?php echo base_url('uploads/'.$k->image) ?>" alt=""></a>
 									<div class="post-body">
@@ -188,10 +138,10 @@ $link = set_linkurl($id,$jdberita);
 											<span class="post-date"><?php echo $tgl;?></span>
 										</div>
 										<h3 class="post-title"><a href="detail/<?php echo $link; ?>"><?php echo $k->judul;?></a></h3>
-										<p><?php echo substr($k->isi, 0, 100);?></p>
+										<p><?php echo substr($k->isi, 0, 50);?></p>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							<!-- /post -->
 							
 					<?php endforeach; ?>
@@ -249,7 +199,7 @@ $link = set_linkurl($id,$jdberita);
 							<div class="post post-widget">
 								<a class="post-img" href="detail/<?php echo $link; ?>"><img src="<?php echo base_url('uploads/'.$k->image) ?>" alt=""></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="detail/<?php echo $id; ?>"><?php echo $k->judul;?></a></h3>
+									<h3 class="post-title"><a href="detail/<?php echo $link; ?>"><?php echo $k->judul;?></a></h3>
 								</div>
 							</div>
 <?php endforeach; ?>

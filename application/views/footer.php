@@ -45,12 +45,12 @@
 <li class="cat-1"><?php echo anchor('index.php/berita/nasional', 'Nasional');?>
 							</li>
 
-							<li class="cat-1"><?php echo anchor('index.php/berita/politik', 'Politik');?>
+							<li class="cat-1"><?php echo anchor('berita/politik', 'Politik');?>
 							</li>
-							<li class="cat-1"><?php echo anchor('index.php/berita/kesehatan', 'Kesehatan');?>
+							<li class="cat-1"><?php echo anchor('berita/kesehatan', 'Kesehatan');?>
 							</li>
 
-<li class="cat-1"><?php echo anchor('index.php/berita/teknologi', 'Teknologi');?>
+<li class="cat-1"><?php echo anchor('berita/teknologi', 'Teknologi');?>
 							</li>
 
 
@@ -64,14 +64,15 @@
 						<div class="footer-widget">
 							<h3 class="footer-title">Bergabunglah dengan Kami</h3>
 							<div class="footer-newsletter">
-							<?php
-    // Cek apakah terdapat session nama message
-    if($this->session->flashdata('message')){ // Jika ada
-      echo $this->session->flashdata('message'); // Tampilkan pesannya
-    }
-    ?>
+						
+
+    <?php
+          echo $this->session->flashdata('msg');
+          ?>
 	<form action="<?php echo base_url(). 'index.php/kontak/join'; ?>" method="post" enctype="multipart/form-data">
 		<input class="input" type="email" name="username" placeholder="masukkan email" required=""><br/>
+		<br>
+		<input class="input" type="number" name="handphone" placeholder="masukkan no handphone" required=""><br/>
 		<input class="hidden" type="text" name="level" placeholder="masukkan email" value="User"><br/>
 		<button type="submit" class="newsletter-btn"><i class="fa fa-paper-plane"></i></button>
 	</form>

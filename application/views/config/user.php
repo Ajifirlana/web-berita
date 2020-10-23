@@ -32,6 +32,9 @@
 
     <div class="box">
       <div class="box-header">
+        <?php
+          echo $this->session->flashdata('msg');
+          ?>
         <h3 class="box-title">Data User</h3>
         
 
@@ -65,6 +68,8 @@
           <thead>
           <tr>
             <th>No.</th>
+
+            <th>No Handphone</th>
             <th>Nama Lengkap</th>
             <th>Email</th>
             <th>Level</th>
@@ -79,6 +84,8 @@
            ?>
           <tr>
             <td><?php echo $no; ?></td>
+
+            <td><?php echo $row->handphone; ?></td>
             <td><?php echo $row->nama_lengkap; ?></td>
              <td><?php echo $row->username; ?></td>
              <td><?php echo $row->level; ?></td>
@@ -257,7 +264,7 @@
     <div class="pull-right hidden-xs">
       
     </div>
-    <strong>Copyright &copy; 2017 <a href="#">Teknologi</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="caramengatasimasalahmu.blogspot.com">Teknologi</a>.</strong> All rights
     reserved.
   </footer>
 

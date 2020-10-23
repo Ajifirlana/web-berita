@@ -9,7 +9,7 @@ class Berita extends CI_Controller {
 		$this->load->helper('cleanurl_helper');
 		$this->load->model('model_berita');
 		$this->load->library('pagination','form_validation');
-		$this->load->helper(array('url','html','text'));
+		$this->load->helper(array('url','html','text','file','form'));
 	}
 
 	public function index()
@@ -83,6 +83,150 @@ $data['politik'] = $this->model_berita->politik();
   $this->load->model('model_berita');
   
   $data = $this->model_berita->fetch_data($this->input->post('limit'), $this->input->post('start'));
+
+
+  if($data->num_rows() > 0)
+  {
+   foreach($data->result() as $row)
+
+   {
+    $output .= '
+    <div class="col-md-12">
+    <div class="post post-row">
+    <img src="../uploads/'.$row->image.'" class="post-img"/>
+
+    <div class="post-body">
+
+     <a href="detail/'.$row->id_berita.'-'.potong($row->judul, '-').'" class="post-title">'.$row->judul.'</a>
+     <p>'.substr($row->isi,0,50).'</p>
+     </div>
+     </div>
+    </div>
+    ';
+   }
+  }
+  echo $output;
+ }
+
+ function fetchpolitik()
+ {
+
+ 	function potong($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    }
+  $output = '';
+  $this->load->model('model_berita');
+  
+  $data = $this->model_berita->fetch_datapolitik($this->input->post('limit'), $this->input->post('start'));
+
+
+  if($data->num_rows() > 0)
+  {
+   foreach($data->result() as $row)
+
+   {
+    $output .= '
+    <div class="col-md-12">
+    <div class="post post-row">
+    <img src="../uploads/'.$row->image.'" class="post-img"/>
+
+    <div class="post-body">
+
+     <a href="detail/'.$row->id_berita.'-'.potong($row->judul, '-').'" class="post-title">'.$row->judul.'</a>
+     <p>'.substr($row->isi,0,50).'</p>
+     </div>
+     </div>
+    </div>
+    ';
+   }
+  }
+  echo $output;
+ }
+
+
+
+ function fetchteknologi()
+ {
+
+ 	function potong($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    }
+  $output = '';
+  $this->load->model('model_berita');
+  
+  $data = $this->model_berita->fetch_datateknologi($this->input->post('limit'), $this->input->post('start'));
+
+
+  if($data->num_rows() > 0)
+  {
+   foreach($data->result() as $row)
+
+   {
+    $output .= '
+    <div class="col-md-12">
+    <div class="post post-row">
+    <img src="../uploads/'.$row->image.'" class="post-img"/>
+
+    <div class="post-body">
+
+     <a href="detail/'.$row->id_berita.'-'.potong($row->judul, '-').'" class="post-title">'.$row->judul.'</a>
+     <p>'.substr($row->isi,0,50).'</p>
+     </div>
+     </div>
+    </div>
+    ';
+   }
+  }
+  echo $output;
+ }
+
+ function fetchkesehatan()
+ {
+
+ 	function potong($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    }
+  $output = '';
+  $this->load->model('model_berita');
+  
+  $data = $this->model_berita->fetch_datakesehatan($this->input->post('limit'), $this->input->post('start'));
+
+
+  if($data->num_rows() > 0)
+  {
+   foreach($data->result() as $row)
+
+   {
+    $output .= '
+    <div class="col-md-12">
+    <div class="post post-row">
+    <img src="../uploads/'.$row->image.'" class="post-img"/>
+
+    <div class="post-body">
+
+     <a href="detail/'.$row->id_berita.'-'.potong($row->judul, '-').'" class="post-title">'.$row->judul.'</a>
+     <p>'.substr($row->isi,0,50).'</p>
+     </div>
+     </div>
+    </div>
+    ';
+   }
+  }
+  echo $output;
+ }
+
+
+
+	function fetchnasional()
+ {
+
+ 	function potong($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    }
+  $output = '';
+  $this->load->model('model_berita');
+  
+  $data = $this->model_berita->fetch_datanasional($this->input->post('limit'), $this->input->post('start'));
 
 
   if($data->num_rows() > 0)

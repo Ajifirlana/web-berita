@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <?php $this->load->view('template_a');?>
-</head>
+
+  <?php $this->load->view('template_a'); ?>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -33,20 +31,15 @@
 
       </div>
 
-<! -- datatables -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
   $(document).ready( function () {
-      $('#berita_foto').DataTable();
+      $('#fotoberita').DataTable();
   } );
 </script>
 
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="berita_foto" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="fotoberita" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
           <tr>
             <th>No.</th>
@@ -88,7 +81,7 @@
     <div class="pull-right hidden-xs">
       
     </div>
-    <strong>Copyright &copy; 2017 <a href="#">Teknologi</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="caramengatasimasalahmu.blogspot.com">Teknologi</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -288,6 +281,5 @@
 </div>
 <!-- ./wrapper -->
 
-<?php $this->load->view('jquery_a');?>
 </body>
 </html>

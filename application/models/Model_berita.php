@@ -16,12 +16,57 @@ var $gallery_path_url;
 		$this->db->insert($table,$data);
 	}
 
+	function fetch_datapolitik($limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("berita");
+  $this->db->where("kategori", "politik");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+ function fetch_datakesehatan($limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("berita");
+  $this->db->where("kategori", "kesehatan");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+ function fetch_datateknologi($limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("berita");
+  $this->db->where("kategori", "teknologi");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+
 	function fetch_data($limit, $start)
  {
 
   $this->db->select("*");
   $this->db->from("berita");
   $this->db->where("kategori", "internasional");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+ function fetch_datanasional($limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("berita");
+  $this->db->where("kategori", "nasional");
   $this->db->limit($limit, $start);
   $query = $this->db->get();
   return $query;
@@ -253,8 +298,8 @@ public function admin_sm_user(){
 	}
 
 	
-public function admin_sm_komentar($limit, $start){
-    return $query = $this->db->get('komentar', $limit, $start);
+public function admin_sm_komentar(){
+    return $query = $this->db->query("SELECT * FROM komentar");
 		return $query;	
 	}
 

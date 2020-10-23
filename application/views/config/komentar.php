@@ -27,6 +27,9 @@
  
     <div class="box">
       <div class="box-header">
+        <?php
+          echo $this->session->flashdata('msg');
+          ?>
         <h3 class="box-title">Data Komentar</h3>
         
 
@@ -193,7 +196,7 @@
     <div class="pull-right hidden-xs">
       
     </div>
-    <strong>Copyright &copy; 2017 <a href="#">Teknologi</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="caramengatasimasalahmu.blogspot.com">Teknologi</a>.</strong> All rights
     reserved.
   </footer>
 
